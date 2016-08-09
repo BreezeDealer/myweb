@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{padding: 0;margin: 0;}
+			#left{
+				width: 480px;
+				height: 270px;
+				float: left;
+				margin: 100px 30px 0 100px;
+				position: relative;
+			}
+			#box{
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				background: url(bj.png);
+				display: none;
+				left: 0;
+				top: 0;
+				opacity: 0.6;
+			}
+			img{
+				width: 480px;
+			}
+			#right{
+				width: 400px;
+				height: 400px;
+				background: url(tree.png) no-repeat top left;
+				float: left;
+				border: 1px solid #ccc;
+				display: none;
+				margin-top: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="left">
+			<img src="tree.png"/>
+			<div id="box">
+				
+			</div>
+			
+		</div>
+		<div id="right">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		var oLeft=document.getElementById("left");
+		var oRight=document.getElementById("right");
+		var oBox=document.getElementById("box");
+		oLeft.onmouseover=function(){
+			oBox.style.display="block";
+			oRight.style.display="block";
+			console.log("over");
+		}
+		oLeft.onmouseout=function(){
+			console.log("out");
+			oBox.style.display="none";
+			oRight.style.display="none";
+		}
+		oLeft.onmousemove=function(ev){
+			ev=ev||event;
+			var scrlollT=document.documentElement.scrollTop||document.body.scrollTop;
+			var L=ev.clientX-this.offsetLeft-oBox.offsetWidth/2;
+			var T=ev.clientY-this.offsetTop-oBox.offsetHeight/2+scrlollT;
+			var maxL=this.offsetWidth-oBox.offsetWidth;
+			var maxT=this.offsetHeight-oBox.offsetHeight;
+			L=L<0 ? 0:L;
+			L=L>maxL ? maxL:L;
+			T=T<0 ? 0:T;
+			T=T>maxT ? maxT:T;
+			oBox.style.left=L+"px";
+			oBox.style.top=T+"px";			
+			oRight.style.backgroundPosition="-"+4*L+"px -"+4*T+"px";
+		}
+		
+	</script>
+</html>
